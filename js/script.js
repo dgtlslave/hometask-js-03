@@ -1,74 +1,86 @@
 
-/* -- START checkRange function -- */
 
-function checkRange (min, max) { // проверяет какое число больше, первое или второе.
-  if (min < max) {
-    return true;
+function s() {
+  var min_digit = prompt('Enter first digit of range.');
+  var max_digit = prompt('Enter second digit of range.');
+
+  if (min_digit < 0 || max_digit < 0) {
+    alert('You enter negative digit.');
   } else {
+    if (rangeChecker(min_digit, max_digit) == true) {
+      if (x = simpleDigit(min_digit, max_digit)) {
+        y = arraySlicer(x, min_digit);
+        alert('Simple digits at your range are: ' + y);
+      } else if (rangeChecker(min_digit, max_digit) == false) {
+        alert('Sorry. First digit must be greater than second');
+      }
+    }
+  }
+}
+
+function arraySlicer(array, sliceStart){ // отрезает кусок ненужного массива до первого предела диапазона
+  var c = [];
+  c = array;
+
+  for (var i = 0; i < c.length; i++) {
+    if (array[i] >= sliceStart) {
+      return array.slice(i);
+    }
+  }
+}
+
+
+
+
+
+
+function rangeChecker (min, max) { // проверяет, что б первый предел диапазона был меньше второго
+  if (min > max) {
     return false;
+  } else {
+    return true;
   }
 }
 
-/* -- END checkRange function -- */
 
-/* -- START simpleDigit function -- */
 
-function simpleDigit(d) {
+
+
+
+function simpleDigit(range_start, range_end) { // проверяет каждое число в диапазоне на "простоту"
   var array = [];
-  if (d != 0) {
-    for (i = 2; i < d - 1; i++) {
-      if (d % i != 0) {
-          array.push(d);
+  var i = range_start;
+  var x = range_start;
+  var d = range_end;
+    point:
+    for (i = 2; i < d; i++) {
+      for (x = 2; x < i; x++) {
+        if (i % x == 0) {
+          continue point;
+        }
       }
+        array.push(i);
     }
-  }
-  return array;
+return array;
 }
 
-/* -- END simpleDigit function -- */
-
-/* -- START checkSimple function -- */
-
-// function checkSimple(digit) { // проверяет простое ли число.
-//     if (digit % 2 != 1) {
-//       return true;
-//     } else {
-//       return false;
+// function simpleDigit(range_start, range_end) {
+//   var array = [];
+//   var i;
+//   var x;
+//     point:
+//     for (i = 2; i < d; i++) {
+//       for (x = 2; x < i; x++) {
+//         if (i % x == 0) {
+//           continue point;
+//         }
+//       }
+//         array.push(i);
 //     }
-//   }
+// return array;
+// }
 
-/* -- END checkSimple function -- */
-
-/* -- START simple function -- */
-
-function simple(min, max) { // записывает в масив только простые числа из заданного диапазона.
-  var array = [];
-
-  if (checkRange(min, max) == true) {
-    for (min; min < max; min++) {
-      if (simpleDigit(min) == true) {
-        array.push(min);
-      } else if (simpleDigit(min) == false) {
-        continue;
-      } else {
-      return 'error';
-      }
-    }
-    return array;
-    } else if (checkRange(min, max) == false) {
-      return 'Attention! The first number must be greater than the second';
-    }
-  }
-
-/* -- END simple function -- */
-
-
-console.log(simpleDigit(20));
-
-
-
-
-// console.log(simple(65, 100));
+ // console.log(s(10, 2100));
 
 
 // Напишите функцию ucFirst(str), которая возвращает строку str с заглавным первым символом, например:
